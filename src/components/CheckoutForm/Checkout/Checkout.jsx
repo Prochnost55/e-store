@@ -95,7 +95,7 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
       <>
         <Typography variant="h5">
           Error found:
-          {console.log(error)}
+          {error}
         </Typography>
 
         <br />
