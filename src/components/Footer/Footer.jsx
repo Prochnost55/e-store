@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
         <div className={classes.contacts}>
           <Icon className={classes.Icon}>
-            <a href="https://www.instagram.com/frontend_ryan/" target="blank">
+            <a href="https://www.instagram.com/_ryan_jonas_/" target="blank">
               <i class="fab fa-instagram"></i>
             </a>
           </Icon>

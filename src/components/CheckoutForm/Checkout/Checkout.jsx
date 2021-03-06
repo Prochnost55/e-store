@@ -94,8 +94,8 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
     Confirmation = () => (
       <>
         <Typography variant="h5">
-          Error found:
-          {error}
+          Thanks for the order. Your order is being processed.
+          {console.log(error)}
         </Typography>
 
         <br />

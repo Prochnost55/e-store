@@ -73,6 +73,11 @@ const PaymentForm = ({
       <Divider />
       <Typography variant="h6" gutterBottom style={{ margin: "20px 0" }}>
         Payment method
+        <Typography color="textSecondary">
+          {" "}
+          Use Card details for test purpose: <br /> 4242 4242 4242 4242 04 24
+          242 42424
+        </Typography>
       </Typography>
       <Elements stripe={stripePromise}>
         <ElementsConsumer>

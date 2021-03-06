@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Products/Navbar/Navbar";
 import Products from "./components/Products/Products";
 import Cart from "./components/Cart/Cart";
-/* import { commerce } from "./lib/commerce"; */
+import { commerce } from "./lib/commerce";
 import Checkout from "./components/CheckoutForm/Checkout/Checkout";
 import Footer from "./components/Footer/Footer";
-import Commerce from "@chec/commerce.js";
-
-const commerce = new Commerce(
-  "pk_test_2384423d8515222267b17afad7bd5bcb60c37ba4b2ec5",
-  true
-);
+import RegisterScreen from "./components/Pages/RegisterScreen";
+import Login from "./components/Pages/Login";
+import Profile from "./components/Pages/Profile";
+import AboutPage from "./components/Pages/HomePage/AboutPage";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -20,6 +18,16 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem("user")));
+  }, [userInfo]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUserInfo("");
+  };
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
@@ -92,6 +100,9 @@ const App = () => {
           handleDrawerToggle={handleDrawerToggle}
         />
         <Switch>
+          <Route path="/about" exact>
+            <AboutPage component={AboutPage} />
+          </Route>
           <Route exact path="/">
             <Products
               products={products}
@@ -115,6 +126,28 @@ const App = () => {
               error={errorMessage}
             />
           </Route>
+          <Route
+            path="/login"
+            component={() => <Login setUserInfo={setUserInfo} />}
+            exact
+          />
+          <Route path="/register" component={RegisterScreen} />
+          <Route path="/profile" component={Profile} exact />
+          <div>
+            {userInfo ? (
+              <>
+                <Link to="/profile">My Profile</Link>
+                <span
+                  style={{ color: "white", cursor: "pointer" }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </span>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </Switch>
       </div>
       <Footer />

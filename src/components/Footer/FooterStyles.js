@@ -32,10 +32,10 @@ export default makeStyles((theme) => ({
   },
   Icon: {
     display: "flex",
-    height: "70%",
+    height: "40%",
     width: "auto",
     align: "center",
-    margin: "1rem",
+    margin: "2rem 1rem",
   },
   anchor: {
     textDecoration: "none",
