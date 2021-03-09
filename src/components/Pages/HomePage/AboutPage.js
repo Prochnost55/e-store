@@ -7,7 +7,7 @@ import Navbar from "../../Products/Navbar/Navbar";
 import MainFeaturedPost from "./MainFeaturedPost";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
-import { Button, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {

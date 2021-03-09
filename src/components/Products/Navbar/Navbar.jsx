@@ -8,6 +8,7 @@ import {
   Menu,
   Typography,
   Button,
+  Avatar,
 } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -19,6 +20,8 @@ const PrimarySearchAppBar = ({ totalItems }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
   const location = useLocation();
+
+  const user = null;
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
@@ -83,16 +86,40 @@ const PrimarySearchAppBar = ({ totalItems }) => {
               <Button color="black" component={Link} to="/about">
                 About
               </Button>
-              <IconButton
-                component={Link}
-                to="/login"
-                aria-label="Show login screen"
-                color="inherit"
-              >
-                <Badge color="secondary">
-                  <PersonAddIcon />
-                </Badge>
-              </IconButton>
+
+              {user ? (
+                <div className={classes.profile}>
+                  <Avatar
+                    className={classes.purple}
+                    alt={user.result.name}
+                    src={user.result.imageUrl}
+                  >
+                    {user.result.name.charAt(0)}
+                  </Avatar>
+                  <Typography className={classes.userName} variant="h6">
+                    {user.result.name}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    className={classes.logout}
+                    color="secondary"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <IconButton
+                  component={Link}
+                  to="/auth"
+                  aria-label="Show login screen"
+                  color="inherit"
+                >
+                  <Badge color="secondary">
+                    <PersonAddIcon />
+                  </Badge>
+                </IconButton>
+              )}
+
               <IconButton
                 component={Link}
                 to="/cart"
