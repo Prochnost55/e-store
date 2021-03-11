@@ -110,7 +110,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
               ) : (
                 <IconButton
                   component={Link}
-                  to="/auth"
+                  to="/login"
                   aria-label="Show login screen"
                   color="inherit"
                 >

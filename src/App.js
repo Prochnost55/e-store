@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./components/Products/Navbar/Navbar";
 import Products from "./components/Products/Products";
 import Cart from "./components/Cart/Cart";
 import { commerce } from "./lib/commerce";
 import Checkout from "./components/CheckoutForm/Checkout/Checkout";
 import Footer from "./components/Footer/Footer";
-import Auth from "./components/Pages/HomePage/Auth";
-import Profile from "./components/Pages/Profile";
+import Profile from "./components/Pages/AuthPages/Profile";
 import AboutPage from "./components/Pages/HomePage/AboutPage";
+import RegisterScreen from "./components/Pages/AuthPages/RegisterScreen";
+import LoginScreen from "./components/Pages/AuthPages/LoginScreen";
+import axios from "axios";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -17,6 +19,25 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [userInfo, setUserInfo] = useState("");
+
+  const callGet = async () => {
+    const { data } = await axios.get("/");
+    console.log(data);
+  };
+
+  useEffect(() => {
+    callGet();
+  }, []);
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem("user")));
+  }, [userInfo]);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUserInfo("");
+  };
 
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
@@ -115,8 +136,27 @@ const App = () => {
               error={errorMessage}
             />
           </Route>
-          <Route path="/auth" component={Auth} exact />
+          <Route path="/register" component={RegisterScreen} exact />
           <Route path="/profile" component={Profile} exact />
+          <Route path="/login" component={LoginScreen} exact />
+          <div>
+            {userInfo ? (
+              <>
+                {" "}
+                <Link to="/profile" style={{ paddingRight: 30 }}>
+                  My Profile
+                </Link>
+                <span
+                  style={{ color: "white", cursor: "pointer" }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </span>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </Switch>
       </div>
       <Footer />
