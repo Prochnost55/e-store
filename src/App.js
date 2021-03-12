@@ -21,15 +21,6 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [userInfo, setUserInfo] = useState("");
 
-  const callGet = async () => {
-    const { data } = await axios.get("/");
-    console.log(data);
-  };
-
-  useEffect(() => {
-    callGet();
-  }, []);
-
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("user")));
   }, [userInfo]);
