@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterScreen = (history) => {
+const RegisterScreen = ({history}) => {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -77,16 +77,16 @@ const RegisterScreen = (history) => {
 
     try {
       const { data } = await axios.post(
-        "/api/user/register",
+        "http://localhost:3000/api/user/register",
         { name, email, password },
         config
       );
-
-      console.log(data);
+      
       setErrorMessage("");
       setSuccessMessage("Successfully Registered !");
       localStorage.setItem("user", JSON.stringify(data));
       history.push("/login");
+
     } catch (error) {
       setErrorMessage("User Already Exists!");
       setSuccessMessage("");

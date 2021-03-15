@@ -19,11 +19,7 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-  const [userInfo, setUserInfo] = useState("");
-
-  useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("user")));
-  }, [userInfo]);
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")));
 
   const handleLogout = () => {
     localStorage.clear();
