@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 
 const Profile = ({ history }) => {
-  const [userInfo, setUserInfo] = useState("");
-
-  useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("user")));
-  }, [userInfo]);
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("user")));
 
   const handleLogout = () => {
     localStorage.clear();
     setUserInfo("");
     history.push("/");
   };
+
+  console.log(userInfo)
 
   return (
     <div className="container">

@@ -50,17 +50,17 @@ const Footer = () => {
         <div className={classes.contacts}>
           <Icon className={classes.Icon}>
             <a href="https://www.instagram.com/_ryan_jonas_/" target="blank">
-              <i class="fab fa-instagram"></i>
+              <i className="fab fa-instagram"></i>
             </a>
           </Icon>
           <Icon className={classes.Icon}>
             <a href="https://www.linkedin.com/in/rajat-mehra-/" target="blank">
-              <i class="fab fa-linkedin"></i>
+              <i className="fab fa-linkedin"></i>
             </a>
           </Icon>
           <Icon className={classes.Icon}>
             <a href="https://github.com/rajat-mehra05" target="blank">
-              <i class="fab fa-github-square"></i>
+              <i className="fab fa-github-square"></i>
             </a>
           </Icon>
         </div>

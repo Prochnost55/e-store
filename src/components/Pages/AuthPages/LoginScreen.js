@@ -75,17 +75,15 @@ const LoginScreen = ({ setUserInfo }) => {
     };
 
     try {
-      const { data } = await axios.post(
-        "/api/user/login",
+      const res = await axios.post(
+        "http://localhost:3000/api/user/login",
         { email, password },
         config
       );
 
-      console.log(data);
       setErrorMessage("");
       setSuccessMessage("Logged In !");
-      localStorage.setItem("user", JSON.stringify(data));
-      setUserInfo(JSON.parse(localStorage.getItem("user")));
+      localStorage.setItem("user", JSON.stringify(res.data));
     } catch (error) {
       setErrorMessage("Invalid Email or password");
       setSuccessMessage("");
