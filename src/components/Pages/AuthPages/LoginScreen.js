@@ -65,29 +65,26 @@ const LoginScreen = ({ setUserInfo }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/api/user/login",
-        { email, password },
-        config
-      );
-
-      setErrorMessage("");
-      setSuccessMessage("Logged In !");
-      localStorage.setItem("user", JSON.stringify(res.data));
-    } catch (error) {
-      setErrorMessage("Invalid Email or password");
-      setSuccessMessage("");
-    }
+  const handleSubmit = event => {
+    event.preventDefault();
+      axios.post("http://localhost:3030/api/user/login",
+        {},{auth: {
+            username: email,
+            password: password
+          }
+        }
+      ).then(response =>{
+        if(response && response.status == 200 && response.data ){
+          let userData = response.data;
+          setErrorMessage("");
+          setSuccessMessage(`Logged In as ${userData.name}`);
+          localStorage.setItem("userData", JSON.stringify(userData));
+        }
+      })
+      .catch (error => {
+        setErrorMessage("Invalid Email or password");
+        setSuccessMessage("");
+      }) 
   };
 
   return (
@@ -112,7 +109,7 @@ const LoginScreen = ({ setUserInfo }) => {
               {successMessage}
             </span>
           )}
-          <form className={classes.form} onSubmit={handleSubmit}>
+          <form className={classes.form}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -144,6 +141,7 @@ const LoginScreen = ({ setUserInfo }) => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleSubmit}
             >
               Sign In
             </Button>

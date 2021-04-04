@@ -66,31 +66,31 @@ const RegisterScreen = ({history}) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
-    try {
-      const { data } = await axios.post(
-        "http://localhost:3000/api/user/register",
-        { name, email, password },
-        config
-      );
-      
-      setErrorMessage("");
-      setSuccessMessage("Successfully Registered !");
-      localStorage.setItem("user", JSON.stringify(data));
-      history.push("/login");
-
-    } catch (error) {
-      setErrorMessage("User Already Exists!");
-      setSuccessMessage("");
-    }
+  const handleSubmit = event => {
+    event.preventDefault();
+    axios.post( `http://localhost:3030/api/user/register`,
+        null,
+        {
+          auth:{
+            username: email,
+            password: password
+          },
+          params:{
+            name: name,
+          }
+        }
+      ).then((response)=> {
+        if(response && response.status == 200){
+          setErrorMessage("");
+          setSuccessMessage("Successfully Registered !");
+          // localStorage.setItem("user", JSON.stringify(data));
+          // history.push("/login");
+        }
+      })
+      .catch((error) => {
+        setErrorMessage("User Already Exists!");
+        setSuccessMessage("");
+      })
   };
 
   return (

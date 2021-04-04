@@ -11,7 +11,6 @@ import Profile from "./components/Pages/AuthPages/Profile";
 import AboutPage from "./components/Pages/HomePage/AboutPage";
 import RegisterScreen from "./components/Pages/AuthPages/RegisterScreen";
 import LoginScreen from "./components/Pages/AuthPages/LoginScreen";
-import axios from "axios";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
