@@ -68,16 +68,17 @@ const RegisterScreen = ({history}) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    
-    axios.post( "http://localhost:3030/api/user/register",
+    axios.post( `http://localhost:3030/api/user/register`,
+        null,
         {
+          auth:{
+            username: email,
+            password: password
+          },
           params:{
             name: name,
           }
-        },{auth:{
-          username: email,
-          password: password
-        }}
+        }
       ).then((response)=> {
         if(response && response.status == 200){
           setErrorMessage("");
