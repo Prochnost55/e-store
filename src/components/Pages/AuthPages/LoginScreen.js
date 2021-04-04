@@ -74,16 +74,16 @@ const LoginScreen = ({ setUserInfo }) => {
           }
         }
       ).then(response =>{
-        if(response && response.status == 200 ){
+        if(response && response.status == 200 && response.data ){
+          let userData = response.data;
           setErrorMessage("");
-          setSuccessMessage("Logged In !");
-          // localStorage.setItem("user", JSON.stringify(res.data));
+          setSuccessMessage(`Logged In as ${userData.name}`);
+          localStorage.setItem("userData", JSON.stringify(userData));
         }
       })
       .catch (error => {
         setErrorMessage("Invalid Email or password");
         setSuccessMessage("");
-        throw error;
       }) 
   };
 
